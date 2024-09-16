@@ -35,11 +35,15 @@ public class FolderMain {
         folder12.addFile(file2);
         folder12.addFile(file3);
 
-        System.out.println("-----------------Initial php demo1 Directory-------------------");
+        System.out.println("--------------php demo1 Directory----------------");
         folder1.printDirectory(folder1);
         System.out.println("\n ~Removing the 'app' folder~ \n");
         folder2.removeFolder(folder4);
-        System.out.println("--------------Final State of php demo1 Directory----------------");
+        System.out.println("--------------php demo1 Directory----------------");
+        folder1.printDirectory(folder1);
+        System.out.println("\n ~Removing the 'public' folder~ \n");
+        folder2.removeFolder(folder12);
+        System.out.println("--------------php demo1 Directory----------------");
         folder1.printDirectory(folder1);
     }
 }
