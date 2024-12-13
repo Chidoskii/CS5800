@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:"ListItem" clicked;
+:product details form displayed;
+while (product details form not complete?) is (true)
+  backward:fill out fields;
+endwhile (form complete)
+  if (confirm details) then (yes)
+    :Store product details in database;
+  else (no)
+  endif
+
+stop
+
+@enduml
+

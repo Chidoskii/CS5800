@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Vendor
+
+participant App
+
+database Products
+
+
+opt "ListItem" clicked
+
+    App -> Vendor: Product details form displayed
+end
+
+alt form complete
+    Vendor -> App: Submit form
+
+    App -> Vendor: Confirm details
+
+    Vendor -> App: Details confirmed
+
+    App -> Products: store product details
+
+else Form incomplete
+    loop form complete
+    Vendor -> App: Submit form
+    App -> Vendor: Fill out all fields
+    end
+
+end
+
+
+
+@enduml

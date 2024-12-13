@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:"addToList" clicked;
+:modal displayed;
+if (select option) then (save)
+:select a list;
+:product added to list;
+:database updated;
+else (cancel)
+endif
+
+stop
+
+@enduml

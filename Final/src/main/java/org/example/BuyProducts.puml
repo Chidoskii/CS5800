@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:"addToCart" clicked;
+:shopping cart updated;
+:add/remove items from cart;
+:increase/decrease item quantity;
+:"checkOut" clicked;
+fork
+:calculate cart total;
+fork again
+:process payment;
+end fork
+if (successful transaction?) then (true)
+  :process order;
+  :store order in database;
+  :notify order confirmed;
+else (false)
+    :notify payment declined;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:"WriteReview" clicked;
+:modal displayed;
+:write a review;
+:give a rating;
+if (form complete?) then (true)
+:"submit" clicked;
+:confirm details;
+:database updated;
+else (false)
+while (form incomplete?) is (true)
+:fill out fields;
+endwhile (false)
+:"submit" clicked;
+:confirm details;
+:database updated;
+endif
+
+stop
+
+@enduml

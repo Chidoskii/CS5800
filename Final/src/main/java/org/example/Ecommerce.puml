@@ -1,0 +1,206 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class App {
+- CustomerList: Customer[]
+- VendorList: Vendor[]
+- DatabaseList: Database[]
++ connectDatabase(): void
++ displayForm(): void
++ saveToDatabase(): void
++ updateCustomerList(): void
++ sendNotification(): void
++ processPayment(): void
++ returnProduct(): void
+}
+
+class Customer {
+- customerID: Integer
+- customerName: String
+- customerAddress: String
+- customerEmail: String
+- customerDOB: Date
+- cart: ShoppingCart
++ getCustomerID(): Integer
++ confirmDetails(): void
++ addProductToCart(): void
++ removeProductFromCart(): void
++ increaseProductQuantityByOne(): void
++ decreaseProductQuantityByOne(): void
++ addToList(): void
++ requestReturnOptions(): void
+}
+
+class Vendor {
+- vendorID: Integer
+- vendorName: String
+- vendorAddress: String
+- vendorEmail: String
++ getVendorID: Integer
++ getVendorName(): String
++ getVendorEmail(): String
++ createProductListing(): void
++ acknowledgeReturnRequest(): void
+}
+
+class Product {
+- productID: Integer
+- productName: String
+- manufacturerName: String
+- weight: double
+- dimensions: String
+- price: double
+- productImages: Image[]
+- productQuantity: Integer
+- policy: ReturnPolicy
++ setPrice(): void
++ getPrice(): double
++ getProductID(): Integer
++ getProductName(): String
++ getManufacturerName(): String
++ getProductWeight(): double
++ getProductDimensions(): String
++ getProductImages(): String
+}
+
+class ShoppingCart {
+- singletonInstance: Singleton
+- cartTotal: double
+- productList: Products[]
++ setCartTotal(): void
++ getCartTotal(): double
++ cartCheckOut(): void
++ updateShoppingCart(): void
++ calculateCartTotal(): double
+}
+
+class CustomList {
+- listID: Integer
+- customerID: Integer
+- productList: Product[]
++ addToList(): void
++ removeFromList(): void
+}
+
+class Order {
+- orderID: Integer
+- productIDList: Integer[]
+- customerID: Integer
+- orderTotal: double
+}
+
+class Review {
+- reviewID: Integer
+- customerID: Integer
+- reviewContent: String
+- rating: Integer
+- reviewDate: Date
++ setReviewContent(): void
++ setRating(): void
++ getRating(): Integer
++ getCustomerID(): Integer
++ getReviewID(): Integer
+}
+
+class ProductBuilder {
+- productID: Integer
+- productName: String
+- manufacturerName: String
+- weight: double
+- dimensions: String
+- price: double
+- productImages: Image[]
+- productQuantity: Integer
+- policy: ReturnPolicy
++ ProductBuilder productID()
++ ProductBuilder productName()
++ ProductBuilder manufacturerName()
++ ProductBuilder weight()
++ ProductBuilder dimensions()
++ ProductBuilder price()
++ ProductBuilder productImages()
++ ProductBuilder policy()
++ Product build()
+}
+
+class ReturnPolicy {
+- returnType: ReturnOptions
+- numberOfDaysForReturn: Integer
++ checkReturnPolicy(): void
++ setReturnType(): void
+}
+
+enum ReturnOptions {
+REFUND
+STORE_CREDIT
+REPLACEMENT
+}
+
+abstract class Database {
+- databaseName: String
+}
+
+class ProductsDatabase {
+}
+
+class CustomersDatabase {
+}
+
+class VendorsDatabase {
+}
+
+class ReviewsDatabase {
+}
+
+interface Mediator {
++ handleClick(): void
+}
+
+class ConcreteMediator {
++ handleClick(): void
+}
+
+interface Component {
++ setMediator(): void
+}
+
+class Button {
+- Mediator mediator
+- ButtonType buttonType
++ setMediator(): void
++ eventHandler(): void
+}
+
+enum ButtonType {
+LIST_ITEM
+RETURN_ITEM
+ADD_TO_CART
+ADD_TO_LIST
+REVIEW_ITEM
+}
+
+Mediator <|-- ConcreteMediator
+Component <|-- Button
+Button o-- ConcreteMediator
+Button --> ButtonType: has
+App "1" o-- "many" Button: contains
+App "1" o-- "many" Product: has
+App "1" o-- "many" Vendor: has
+App "1" o-- "many" Customer: has
+App "1" o-- "many" Database: can have
+Database <|-- ProductsDatabase
+Database <|-- ReviewsDatabase
+Database <|-- CustomersDatabase
+Database <|-- VendorsDatabase
+ProductBuilder --> Product: builds
+Vendor "1" --> "many" Product: sells
+Customer "1" --> "many" Product: buys
+Customer "1" --> "many" CustomList: has
+Customer "1" o-- "1" ShoppingCart: has
+Customer "1" --> "many" Order: makes
+Customer "1" --> "many" Review: writes
+Product "1" --> "1" ReturnPolicy: has
+ReturnPolicy --> ReturnOptions: has
+
+
+@enduml

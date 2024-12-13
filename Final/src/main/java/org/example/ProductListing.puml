@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:"ReturnItem" clicked;
+if (return possible?) then (true)
+  :choose return option;
+  :notify vendor;
+  :send confirmation;
+else (false)
+    :return not possible;
+endif
+
+stop
+
+@enduml

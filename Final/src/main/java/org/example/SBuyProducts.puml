@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Customer
+
+participant App
+
+database Users
+database Products
+database Orders
+
+participant ThirdPartyApp
+
+
+App -> Products: Retrieve product information
+App -> Customer: Display products
+
+opt "addToCart" clicked
+    Customer -> App: add/remove items
+    Customer -> App: increase/decrease quantity
+    App -> Users: update shopping cart
+end
+
+opt "checkout" clicked
+    App -> Users: calculate total
+    App -> ThirdPartyApp: process payment
+    alt payment successful
+    ThirdPartyApp -> App: Send success message
+    App -> Customer: notify transaction succeeded
+    App -> Orders: Process and store order details
+    App -> Customer: notify order confirmed
+    else payment failed
+    ThirdPartyApp -> App: Send failure message
+    App -> Customer: notify transaction failed
+    end
+
+end
+
+@enduml
